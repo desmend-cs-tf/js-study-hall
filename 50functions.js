@@ -18,9 +18,18 @@
  * Returns a greeting for a given hero name.
  * Example: greetHero("Naruto") → "Believe it! My name is Naruto!"
  */
+
+let name = "Naruto";
+
 function greetHero(name) {
   // TODO: Return a string that says "Believe it! My name is <n>!"
+  return `Believe it! My name is ${name}!`;
 }
+
+
+
+console.log(greetHero(name));
+
 
 /**
  * FN 02 — makeAnnouncement
@@ -30,7 +39,11 @@ function greetHero(name) {
 function makeAnnouncement(hero, power) {
   // TODO: Build the string and return it in UPPERCASE
   // HINT: .toUpperCase()
+
+  return (`${hero} unleasehes ${power}`).toUpperCase();
 }
+
+console.log(makeAnnouncement("Goku", "Kamehameha"));
 
 /**
  * FN 03 — reverseJutsu
@@ -40,6 +53,9 @@ function makeAnnouncement(hero, power) {
 function reverseJutsu(jutsu) {
   // TODO: Reverse the string and return it
   // HINT: .split(""), .reverse(), .join("")
+
+  return jutsu.split("").reverse().join("");
+  console.log(reverseJutsu(jutsu));
 }
 
 /**
@@ -47,7 +63,20 @@ function reverseJutsu(jutsu) {
  * Counts how many vowels (a, e, i, o, u) are in a technique name.
  * Example: countVowels("Sharingan") → 3
  */
+
+let vowels = ["a", "e", "i", "o", "u"];
+
 function countVowels(technique) {
+  let count = 0;
+  for (let i = 0; i < technique.length; i++) {
+    for (let j = 0; j < vowels.length; j++) {
+      if (technique[i].contains(vowels[j])) {
+        count++;
+      }
+    }
+    return count;
+    console.log(countVowels(technique));
+  }
   // TODO: Count and return the number of vowels in the string
   // HINT: loop through each character, check if it's in "aeiou"
 }
