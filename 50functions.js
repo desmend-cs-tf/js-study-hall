@@ -19,48 +19,67 @@
  * Example: greetHero("Naruto") → "Believe it! My name is Naruto!"
  */
 function greetHero(name) {
-  // TODO: Return a string that says "Believe it! My name is <n>!"
+  return `Believe it! My name is ${name}!`;
 }
-
+console.log(greetHero("Naruto"));
 /**
  * FN 02 — makeAnnouncement
  * Combines a hero name and power move into a battle cry — ALL CAPS!
  * Example: makeAnnouncement("Goku", "Kamehameha") → "GOKU UNLEASHES KAMEHAMEHA!"
  */
+let hero = "Goku";
+let power = "Kamehameha";
 function makeAnnouncement(hero, power) {
+  let makeAnnouncement = `${hero} unleashes ${power}!`;
+  return makeAnnouncement.toUpperCase();
   // TODO: Build the string and return it in UPPERCASE
   // HINT: .toUpperCase()
 }
-
+console.log(makeAnnouncement("Goku", "Kamehameha"));
 /**
  * FN 03 — reverseJutsu
  * Reverses a jutsu name (some jutsu must be spoken backwards to activate!)
  * Example: reverseJutsu("Rasengan") → "nagnesaR"
  */
+let jutsu = "Rasengan";
 function reverseJutsu(jutsu) {
+  return jutsu.split("").reverse().join("");
   // TODO: Reverse the string and return it
   // HINT: .split(""), .reverse(), .join("")
 }
-
+console.log(reverseJutsu("Rasengan"));
 /**
  * FN 04 — countVowels
  * Counts how many vowels (a, e, i, o, u) are in a technique name.
  * Example: countVowels("Sharingan") → 3
  */
+let vowels = "aeiou";
+let count = 0;
 function countVowels(technique) {
+  for (let i = 0; i < technique.length; i++) {
+    if (vowels.includes(technique[i].toLowerCase())) {
+      count++;
+    }
+  }
+  return count;
+}
+console.log(countVowels("technique"));
   // TODO: Count and return the number of vowels in the string
   // HINT: loop through each character, check if it's in "aeiou"
-}
+
 
 /**
  * FN 05 — formatTitle
  * Formats a hero name and title like a manga chapter header.
  * Example: formatTitle("Sasuke", "Avenger") → "Chapter: Sasuke — The Avenger"
  */
+let name = "Sasuke";
+let title = "Avenger";
 function formatTitle(name, title) {
+  return `Chapter: ${name} - The ${title}`;
   // TODO: Return the formatted string exactly as shown in the example
 }
-
+console.log(formatTitle("Sasuke", "Avenger"));
 /**
  * FN 06 — isPalindrome
  * Checks if a technique name reads the same forwards and backwards.
@@ -68,10 +87,16 @@ function formatTitle(name, title) {
  * Example: isPalindrome("Naruto") → false
  */
 function isPalindrome(word) {
+  let reversed = word.split("").reverse().join("");
+  if (word === reversed) {
+    return true;
+  } else {
+    return false;
+  }
   // TODO: Return true if the word equals its reverse, false otherwise
   // HINT: compare word to its reversed version (see FN 03!)
 }
-
+console.log(isPalindrome("racecar"));
 /**
  * FN 07 — shortenName
  * If a hero's name is longer than 8 characters, return the first 8 + "..."
@@ -80,9 +105,17 @@ function isPalindrome(word) {
  * Example: shortenName("Luffy") → "Luffy"
  */
 function shortenName(name) {
+  if (name.length > 8) {
+    return name.slice(0, 8) + "...";
+  } else {
+    return name;
+  }
+
   // TODO: Check name.length and return the right version
   // HINT: name.slice(0, 8)
 }
+console.log(shortenName("Kuchiki Byakuya"));
+console.log(shortenName("Luffy"));
 
 /**
  * FN 08 — containsJutsu
@@ -91,9 +124,15 @@ function shortenName(name) {
  * Example: containsJutsu("Rasengan") → false
  */
 function containsJutsu(text) {
+  if (text.toLowerCase().includes("jutsu")) {
+    return true;
+  } else {
+    return false;
+  }
   // TODO: Return true if "jutsu" is found in the lowercased text
   // HINT: .toLowerCase().includes("jutsu")
 }
+console.log(containsJutsu("Shadow Clone Jutsu"));
 
 
 // ─────────────────────────────────────────────
@@ -105,9 +144,13 @@ function containsJutsu(text) {
  * Adds attack and defense to get a total power level.
  * Example: calculatePowerLevel(4500, 3200) → 7700
  */
+let attack = 4500;
+let defense = 3200;
 function calculatePowerLevel(attack, defense) {
+  return attack + defense;
   // TODO: Return attack + defense
 }
+console.log(calculatePowerLevel(4500, 3200));
 
 /**
  * FN 10 — isOverNineThousand
@@ -115,9 +158,16 @@ function calculatePowerLevel(attack, defense) {
  * Example: isOverNineThousand(9001) → true
  * Example: isOverNineThousand(9000) → false
  */
+let powerLevel = 9001;
 function isOverNineThousand(powerLevel) {
-  // TODO: Return a boolean
+  if (powerLevel >9000) {
+    return true;
+  } else {
+    return false;
+  }
 }
+console.log(isOverNineThousand(9001));
+console.log(isOverNineThousand(9000));
 
 /**
  * FN 11 — chakraRemaining
@@ -126,11 +176,15 @@ function isOverNineThousand(powerLevel) {
  * Example: chakraRemaining(200, 75) → 125
  * Example: chakraRemaining(30, 75)  → 0
  */
+
+
 function chakraRemaining(currentChakra, techniqueCost) {
+  return Math.max(0, currentChakra - techniqueCost);
   // TODO: Subtract and guard against going below 0
   // HINT: Math.max(0, currentChakra - techniqueCost)
-}
 
+}
+console.log(chakraRemaining(20, 41));
 /**
  * FN 12 — levelUpStat
  * Increases a stat by 10% after a level up, rounded to nearest whole number.
@@ -140,8 +194,9 @@ function chakraRemaining(currentChakra, techniqueCost) {
 function levelUpStat(stat) {
   // TODO: Multiply by 1.1, round and return
   // HINT: Math.round()
+  return Math.round(stat * 1.1);
 }
-
+console.log(levelUpStat(50));
 /**
  * FN 13 — randomEnemyLevel
  * Returns a random integer between min and max (both inclusive).
@@ -150,8 +205,9 @@ function levelUpStat(stat) {
 function randomEnemyLevel(min, max) {
   // TODO: Return a random integer in the given range
   // HINT: Math.floor(Math.random() * (max - min + 1)) + min
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-
+console.log(randomEnemyLevel(1, 100));
 /**
  * FN 14 — clampHP
  * Clamps a HP value so it's never below 0 or above maxHP.
@@ -160,11 +216,17 @@ function randomEnemyLevel(min, max) {
  * Example: clampHP(75, 100)  → 75
  */
 function clampHP(hp, maxHP) {
-  // TODO: Return hp, but clamped between 0 and maxHP
-  // HINT: if/else if/else — check both boundaries
+  if (hp < 0) {
+    return 0;
+  } else if (hp > maxHP) {
+    return maxHP;
+  } else {
+    return hp;
+  }
 }
-
-
+console.log(clampHP(120, 100));
+// TODO: Return hp, but clamped between 0 and maxHP
+  // HINT: if/else if/else — check both boundaries
 // ─────────────────────────────────────────────
 // 📋 SECTION 3: ARRAYS — "The Ninja Squad"
 // ─────────────────────────────────────────────
@@ -175,48 +237,57 @@ function clampHP(hp, maxHP) {
  * Example: listSquad(["Naruto", "Sasuke", "Sakura"]) → "Your squad: Naruto, Sasuke, Sakura"
  */
 function listSquad(members) {
+  return `Your squad: ${members.join(", ")}`;
   // TODO: Return the formatted string
   // HINT: .join(", ")
 }
-
+console.log(listSquad(["Naruto", "Sasuke", "Sakura"]));
 /**
  * FN 16 — addMember
  * Adds a new member to the squad and returns the updated array.
  * Example: addMember(["Naruto"], "Sasuke") → ["Naruto", "Sasuke"]
  */
+let squad = ["Naruto", "Sasuke", "Sakura"];
 function addMember(squad, newMember) {
+  squad.push(newMember);
+  return squad;
   // TODO: Push newMember to squad and return the array
 }
-
+console.log(addMember(squad, "Fishman"));
 /**
  * FN 17 — removeMember
  * Removes the first member (they went rogue!) and returns the rest.
  * Example: removeMember(["Sasuke", "Itachi", "Orochimaru"]) → ["Itachi", "Orochimaru"]
  */
 function removeMember(squad) {
+  squad.shift();
+  return squad;
   // TODO: Remove the first element and return the remaining array
   // HINT: .shift()
 }
-
+console.log(removeMember(squad));
 /**
  * FN 18 — findStrongest
  * Returns the highest power level in the array.
  * Example: findStrongest([300, 9001, 450, 7200]) → 9001
  */
 function findStrongest(powerLevels) {
+  return Math.max(...powerLevels);
   // TODO: Return the max value
   // HINT: Math.max(...powerLevels)
 }
-
+console.log(findStrongest([300, 9001, 450, 7200]));
 /**
  * FN 19 — filterSRank
  * Keeps only power levels above 5000.
  * Example: filterSRank([1000, 6000, 3000, 8000]) → [6000, 8000]
  */
 function filterSRank(powerLevels) {
+  return powerLevels.filter(level => level > 5000)
   // TODO: Return only values greater than 5000
   // HINT: .filter()
 }
+console.log(filterSRank([1000, 6000, 3000, 8000]));
 
 /**
  * FN 20 — totalTeamPower
@@ -224,20 +295,26 @@ function filterSRank(powerLevels) {
  * Example: totalTeamPower([1000, 2000, 3000]) → 6000
  */
 function totalTeamPower(powerLevels) {
+  let total = 0
+  for (let i = 0; i < powerLevels.length; i++) {
+    total += powerLevels[i];
+  }
+  return total;
   // TODO: Add up all elements and return the total
   // HINT: a for loop with a running total variable works great here
 }
-
+console.log(totalTeamPower([1000,2000,3000]));
 /**
  * FN 21 — uniqueTechniques
  * Removes duplicate technique names.
  * Example: uniqueTechniques(["Rasengan", "Rasengan", "Chidori"]) → ["Rasengan", "Chidori"]
  */
 function uniqueTechniques(techniques) {
+  return [...new Set(techniques)]
   // TODO: Return a new array with no duplicates
   // HINT: [...new Set(techniques)]
 }
-
+console.log(uniqueTechniques(["Rasengan", "Rasengan", "Chidori"]));
 /**
  * FN 22 — sortByPower
  * Sorts an array of hero objects by power level, highest first.
@@ -245,10 +322,11 @@ function uniqueTechniques(techniques) {
  *          → [{name:"Goku", power:9000}, {name:"Frieza", power:5000}]
  */
 function sortByPower(heroes) {
+  return heroes.sort((a, b) => b.power - a.power);
   // TODO: Sort heroes by .power descending
   // HINT: .sort((a, b) => b.power - a.power)
 }
-
+console.log (sortByPower([{name:"Goku", power:9000}, {name:"Frieza", power:5000}]));
 /**
  * FN 23 — getAllNames
  * Returns an array of just the name strings from an array of character objects.
@@ -256,10 +334,11 @@ function sortByPower(heroes) {
  *          → ["Luffy", "Zoro"]
  */
 function getAllNames(characters) {
+  return characters.map(c => c.name)
   // TODO: Return an array of just the .name values
   // HINT: .map(c => c.name)
 }
-
+console.log(getAllNames([{name:"Luffy", power:8000}, {name:"Zoro", power:7500}]));
 
 // ─────────────────────────────────────────────
 // 🗂 SECTION 4: OBJECTS — "The Bingo Book"
@@ -272,9 +351,14 @@ function getAllNames(characters) {
  *          → { name: "Rock Lee", rank: "Genin", power: 3000 }
  */
 function createCharacter(name, rank, power) {
+  return {
+  name: name,
+  rank: rank,
+  power: power,
+  };
   // TODO: Return an object with those three properties
-}
-
+};
+console.log(createCharacter("Rock Lee", "Genin", 3000));
 /**
  * FN 25 — characterSummary
  * Returns a one-line string from a character object.
@@ -282,8 +366,10 @@ function createCharacter(name, rank, power) {
  *          → "Kakashi | Rank: Jonin | Power: 8200"
  */
 function characterSummary(character) {
+  return `${character.name} | ${character.rank} | ${character.power}`;
   // TODO: Build and return the formatted summary string
-}
+};
+console.log(characterSummary({ name: "Kakashi", rank: "Jonin", power: 8200 }));
 
 /**
  * FN 26 — addTechnique
@@ -292,8 +378,11 @@ function characterSummary(character) {
  *          → { name: "Naruto", techniques: ["Rasengan", "Shadow Clone"] }
  */
 function addTechnique(character, newTechnique) {
+  character.techniques.push(newTechnique);
+  return character;
   // TODO: Push newTechnique into character.techniques, then return character
 }
+console.log(addTechnique({ name: "Naruto", techniques: ["Rasengan"] }, "Shadow Clone"))
 
 /**
  * FN 27 — getCharacterKeys
@@ -301,20 +390,22 @@ function addTechnique(character, newTechnique) {
  * Example: getCharacterKeys({ name: "Luffy", power: 9999 }) → ["name", "power"]
  */
 function getCharacterKeys(character) {
+  return Object.keys(character);
   // TODO: Return an array of the object's keys
   // HINT: Object.keys()
 }
-
+console.log(getCharacterKeys({ name: "Luffy", power: 9999 }));
 /**
  * FN 28 — mergeStats
  * Merges two stat objects into one.
  * Example: mergeStats({ attack: 50 }, { defense: 80 }) → { attack: 50, defense: 80 }
  */
 function mergeStats(stats1, stats2) {
+  return { ...stats1, ...stats2 };
   // TODO: Return a single merged object
   // HINT: { ...stats1, ...stats2 }
 }
-
+console.log(mergeStats({ attack: 50 }, { defense: 80 }))
 
 // ─────────────────────────────────────────────
 // 🧠 SECTION 5: CONDITIONALS — "The Decision Arc"
@@ -330,9 +421,19 @@ function mergeStats(stats1, stats2) {
  * Example: getRank(4500) → "Jonin"
  */
 function getRank(powerLevel) {
+  if(powerLevel < 1000) {
+    return "Genin";
+  } else if (powerLevel < 3000) {
+    return "Chunin";
+   } else if (powerLevel < 6000) {
+    return "Jonin";
+   } else {
+    return "Kage";
+   }
   // TODO: Use if/else if to return the correct rank string
-}
+};
 
+console.log(getRank(3999));
 /**
  * FN 30 — getArcType
  * Returns the story arc type based on power level.
@@ -343,9 +444,18 @@ function getRank(powerLevel) {
  * Example: getArcType(7200) → "Tournament Arc"
  */
 function getArcType(powerLevel) {
+  if(powerLevel < 1000) {
+    return "Filler Arc";
+  } else if (powerLevel < 5000) {
+    return "Training Arc";
+   } else if (powerLevel < 9000) {
+    return "Tournament Arc";
+   } else {
+    return "Final Boss Arc";
+   }
   // TODO: Use if/else if to return the correct arc string
 }
-
+console.log(getArcType(2000))
 /**
  * FN 31 — canUseJutsu
  * Returns true if the character has enough chakra for the jutsu.
@@ -353,9 +463,14 @@ function getArcType(powerLevel) {
  * Example: canUseJutsu(50, 80)  → false
  */
 function canUseJutsu(currentChakra, jutsuCost) {
+  if (currentChakra >= jutsuCost) {
+    return true
+  } else {
+    return false
+  }
   // TODO: Return a boolean comparison
 }
-
+console.log(canUseJutsu(200,199))
 /**
  * FN 32 — battleResult
  * Compares two hero power levels and returns who wins (or if it's a draw).
@@ -363,9 +478,16 @@ function canUseJutsu(currentChakra, jutsuCost) {
  * Example: battleResult("Goku", 9000, "Vegeta", 9000) → "It's a draw!"
  */
 function battleResult(hero1, power1, hero2, power2) {
+  if (power1 > power2) {
+    return (`${hero1} is the winner`)
+  } else if (power1 < power2) {
+    return (`${hero2} is the winner`)
+  } else {
+    return (`We have a Draw!`)
+  }
   // TODO: Compare powers with if/else if/else and return the right string
 }
-
+console.log(battleResult("Goku", 9000, "Vegeta", 9000));
 /**
  * FN 33 — isLegendary
  * Returns true if the character's name is in the legendary list.
@@ -375,10 +497,11 @@ function battleResult(hero1, power1, hero2, power2) {
  */
 function isLegendary(name) {
   const legendary = ["Goku", "Naruto", "Luffy", "Ichigo", "Giorno"];
+  return legendary.includes(name);
   // TODO: Return true if name is in the legendary array
   // HINT: .includes()
 }
-
+console.log(isLegendary("Naruto"));
 /**
  * FN 34 — getElementWeakness
  * Returns the counter-element for each type.
