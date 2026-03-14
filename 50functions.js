@@ -64,22 +64,24 @@ function reverseJutsu(jutsu) {
  * Example: countVowels("Sharingan") → 3
  */
 
-let vowels = ["a", "e", "i", "o", "u"];
+let vowels = ["a", "e", "i", "o", "u", "A", "E", "I", "O", "U"];
 
+  
+
+ let count = 0;
 function countVowels(technique) {
-  let count = 0;
-  for (let i = 0; i < technique.length; i++) {
-    for (let j = 0; j < vowels.length; j++) {
-      if (technique[i].contains(vowels[j])) {
-        count++;
-      }
+  
+  for (let letter of technique) {
+    if (vowels.includes(letter)) {
+      count++;
     }
-    return count;
-    console.log(countVowels(technique));
   }
-  // TODO: Count and return the number of vowels in the string
-  // HINT: loop through each character, check if it's in "aeiou"
+ return count;
 }
+  
+  
+
+  console.log(countVowels("AEIOU"));
 
 /**
  * FN 05 — formatTitle
@@ -88,7 +90,11 @@ function countVowels(technique) {
  */
 function formatTitle(name, title) {
   // TODO: Return the formatted string exactly as shown in the example
+  return `Chapter: ${name} — The ${title}`;
+ 
 }
+
+console.log(formatTitle("Desmend", "Destroyer"));
 
 /**
  * FN 06 — isPalindrome
@@ -96,10 +102,18 @@ function formatTitle(name, title) {
  * Example: isPalindrome("racecar") → true
  * Example: isPalindrome("Naruto") → false
  */
+
 function isPalindrome(word) {
-  // TODO: Return true if the word equals its reverse, false otherwise
-  // HINT: compare word to its reversed version (see FN 03!)
+  let wordReversed = word.split("").reverse().join("");
+  if (word == wordReversed) {
+    return true;
+  } else {
+    return false;
+  }
 }
+
+console.log(isPalindrome("happy"));
+
 
 /**
  * FN 07 — shortenName
@@ -108,10 +122,16 @@ function isPalindrome(word) {
  * Example: shortenName("Kuchiki Byakuya") → "Kuchiki ..."
  * Example: shortenName("Luffy") → "Luffy"
  */
+
 function shortenName(name) {
+  if (name.length > 8) {
+    return name.slice(0, 8) + "...";
+  }
   // TODO: Check name.length and return the right version
   // HINT: name.slice(0, 8)
 }
+
+console.log(shortenName("Kuchiki Byakuya"));
 
 /**
  * FN 08 — containsJutsu
@@ -120,9 +140,17 @@ function shortenName(name) {
  * Example: containsJutsu("Rasengan") → false
  */
 function containsJutsu(text) {
+  text = text.toLowerCase();
+  if (text.includes("jutsu")) {
+    return true;
+  } else {
+    return false;
+  }
   // TODO: Return true if "jutsu" is found in the lowercased text
   // HINT: .toLowerCase().includes("jutsu")
 }
+
+console.log(containsJutsu("JuJutsu Kaisen"));
 
 
 // ─────────────────────────────────────────────
@@ -135,9 +163,10 @@ function containsJutsu(text) {
  * Example: calculatePowerLevel(4500, 3200) → 7700
  */
 function calculatePowerLevel(attack, defense) {
-  // TODO: Return attack + defense
+  return attack + defense
 }
 
+console.log(calculatePowerLevel(1600, 1000));
 /**
  * FN 10 — isOverNineThousand
  * Returns true if the power level is strictly over 9000.
@@ -146,8 +175,14 @@ function calculatePowerLevel(attack, defense) {
  */
 function isOverNineThousand(powerLevel) {
   // TODO: Return a boolean
+  if (powerLevel > 9000) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
+console.log(isOverNineThousand(0));
 /**
  * FN 11 — chakraRemaining
  * Subtracts a technique's cost from current chakra.
