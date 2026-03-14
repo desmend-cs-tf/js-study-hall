@@ -18,60 +18,87 @@
  * Returns a greeting for a given hero name.
  * Example: greetHero("Naruto") → "Believe it! My name is Naruto!"
  */
+let name;
 function greetHero(name) {
-  // TODO: Return a string that says "Believe it! My name is <n>!"
+  return `Believe it! My name is ${name}!`
 }
-
+console.log(greetHero("Naruto"));
 /**
  * FN 02 — makeAnnouncement
  * Combines a hero name and power move into a battle cry — ALL CAPS!
  * Example: makeAnnouncement("Goku", "Kamehameha") → "GOKU UNLEASHES KAMEHAMEHA!"
  */
+let hero;
+let power;
 function makeAnnouncement(hero, power) {
   // TODO: Build the string and return it in UPPERCASE
   // HINT: .toUpperCase()
-}
-
+  return (`${hero} unleashes ${power}!`).toUpperCase()
+};
+console.log(makeAnnouncement("Goku", "Kamehameha"));
 /**
  * FN 03 — reverseJutsu
  * Reverses a jutsu name (some jutsu must be spoken backwards to activate!)
  * Example: reverseJutsu("Rasengan") → "nagnesaR"
  */
+let jutsu;
 function reverseJutsu(jutsu) {
   // TODO: Reverse the string and return it
   // HINT: .split(""), .reverse(), .join("")
-}
+    let reversed = jutsu.split("").reverse().join("");
+    return reversed
 
+}
+console.log(reverseJutsu("Rasengan"));
 /**
  * FN 04 — countVowels
  * Counts how many vowels (a, e, i, o, u) are in a technique name.
  * Example: countVowels("Sharingan") → 3
  */
-function countVowels(technique) {
+let word = "Sharingan";
+const vowels = "aeiou";
+let syllable = 0;
   // TODO: Count and return the number of vowels in the string
   // HINT: loop through each character, check if it's in "aeiou"
-}
+    for (let char of word){
+    if(vowels.includes(char)){
+      syllable ++;
+    }
+  }
+console.log(syllable);
 
 /**
  * FN 05 — formatTitle
  * Formats a hero name and title like a manga chapter header.
  * Example: formatTitle("Sasuke", "Avenger") → "Chapter: Sasuke — The Avenger"
  */
-function formatTitle(name, title) {
-  // TODO: Return the formatted string exactly as shown in the example
-}
+let heroName;
+let title;
 
+function formatTitle(heroName, title) {
+  // TODO: Return the formatted string exactly as shown in the example
+    return `Chapter: ${heroName} - ${title}`;
+}
+console.log("Sasuke", "The Avenger");
 /**
  * FN 06 — isPalindrome
  * Checks if a technique name reads the same forwards and backwards.
  * Example: isPalindrome("racecar") → true
  * Example: isPalindrome("Naruto") → false
  */
-function isPalindrome(word) {
-  // TODO: Return true if the word equals its reverse, false otherwise
-  // HINT: compare word to its reversed version (see FN 03!)
-}
+// let palindrome = "Naruto" ;
+// function isPalindrome(palindrome) {
+//   // TODO: Return true if the word equals its reverse, false otherwise
+//   // HINT: compare word to its reversed version (see FN 03!)
 
+
+//   for(let i = 0; i < palindrome.length / 2; i++){
+//     if(palindrome[i] !== palindrome[palindrome.length-1-i]){
+//       palindrome = false;
+//     }
+//   }
+// }
+// console.log(isPalindrome);
 /**
  * FN 07 — shortenName
  * If a hero's name is longer than 8 characters, return the first 8 + "..."
@@ -79,22 +106,33 @@ function isPalindrome(word) {
  * Example: shortenName("Kuchiki Byakuya") → "Kuchiki ..."
  * Example: shortenName("Luffy") → "Luffy"
  */
-function shortenName(name) {
+let nameHero;
+function shortenName(nameHero) {
   // TODO: Check name.length and return the right version
   // HINT: name.slice(0, 8)
+  if(nameHero.length > 8){
+    return nameHero.slice(0, 8) + "...";
+  }
 }
-
+console.log(shortenName("Kuchiki Byakuya"));
 /**
  * FN 08 — containsJutsu
  * Returns true if the word "jutsu" appears anywhere in the text (case-insensitive).
  * Example: containsJutsu("Shadow Clone Jutsu") → true
  * Example: containsJutsu("Rasengan") → false
  */
+let text;
 function containsJutsu(text) {
   // TODO: Return true if "jutsu" is found in the lowercased text
   // HINT: .toLowerCase().includes("jutsu")
-}
+  if(text.toLowerCase().includes("jutsu")){
+    return true;
+  }else{
+    return false;
+  }
 
+};
+console.log(containsJutsu("Shadow Clone"));
 
 // ─────────────────────────────────────────────
 // ⚡ SECTION 2: NUMBERS — "Power Levels"
@@ -105,9 +143,13 @@ function containsJutsu(text) {
  * Adds attack and defense to get a total power level.
  * Example: calculatePowerLevel(4500, 3200) → 7700
  */
+let attack;
+let defense;
 function calculatePowerLevel(attack, defense) {
   // TODO: Return attack + defense
+    return attack + defense
 }
+console.log(calculatePowerLevel(5, 5));
 
 /**
  * FN 10 — isOverNineThousand
@@ -115,10 +157,16 @@ function calculatePowerLevel(attack, defense) {
  * Example: isOverNineThousand(9001) → true
  * Example: isOverNineThousand(9000) → false
  */
+let powerlevel;
 function isOverNineThousand(powerLevel) {
   // TODO: Return a boolean
+  if(powerLevel > 9000){
+    return true;
+  }else{
+    return false;
+  }
 }
-
+console.log(isOverNineThousand(10000));
 /**
  * FN 11 — chakraRemaining
  * Subtracts a technique's cost from current chakra.
@@ -126,22 +174,32 @@ function isOverNineThousand(powerLevel) {
  * Example: chakraRemaining(200, 75) → 125
  * Example: chakraRemaining(30, 75)  → 0
  */
+let currentChakra;
+let techniqueCost;
 function chakraRemaining(currentChakra, techniqueCost) {
   // TODO: Subtract and guard against going below 0
   // HINT: Math.max(0, currentChakra - techniqueCost)
+  let newChakra = techniqueCost - currentChakra;
+  if(Math.max(0, currentChakra - techniqueCost)){
+    return 0;
+  }else{
+    return newChakra;
+  }
 }
-
+console.log(chakraRemaining(75, 30));
 /**
  * FN 12 — levelUpStat
  * Increases a stat by 10% after a level up, rounded to nearest whole number.
  * Example: levelUpStat(50) → 55
  * Example: levelUpStat(33) → 36
  */
+let stat;
 function levelUpStat(stat) {
   // TODO: Multiply by 1.1, round and return
   // HINT: Math.round()
+  return Math.round(stat * 1.1);
 }
-
+console.log(levelUpStat(50));
 /**
  * FN 13 — randomEnemyLevel
  * Returns a random integer between min and max (both inclusive).
@@ -150,8 +208,9 @@ function levelUpStat(stat) {
 function randomEnemyLevel(min, max) {
   // TODO: Return a random integer in the given range
   // HINT: Math.floor(Math.random() * (max - min + 1)) + min
+  return Math.floor(Math.random() * (max - min + 1)) + min
 }
-
+console.log(randomEnemyLevel(1, 10));
 /**
  * FN 14 — clampHP
  * Clamps a HP value so it's never below 0 or above maxHP.
@@ -159,11 +218,15 @@ function randomEnemyLevel(min, max) {
  * Example: clampHP(-10, 100) → 0
  * Example: clampHP(75, 100)  → 75
  */
-function clampHP(hp, maxHP) {
-  // TODO: Return hp, but clamped between 0 and maxHP
-  // HINT: if/else if/else — check both boundaries
-}
+// let hp;
+// let maxHP;
+// function clampHP(hp, maxHP) {
+//   // TODO: Return hp, but clamped between 0 and maxHP
+//   // HINT: if/else if/else — check both boundaries
 
+
+// }
+// console.log(clampHP(200));
 
 // ─────────────────────────────────────────────
 // 📋 SECTION 3: ARRAYS — "The Ninja Squad"
@@ -174,11 +237,15 @@ function clampHP(hp, maxHP) {
  * Returns a sentence listing all squad members.
  * Example: listSquad(["Naruto", "Sasuke", "Sakura"]) → "Your squad: Naruto, Sasuke, Sakura"
  */
+let members;
 function listSquad(members) {
   // TODO: Return the formatted string
   // HINT: .join(", ")
-}
+    members.join(", ");
+    return "Your squad " + members;
 
+}
+console.log(listSquad("Naruto", "Sasuke", "Sakura"));
 /**
  * FN 16 — addMember
  * Adds a new member to the squad and returns the updated array.
