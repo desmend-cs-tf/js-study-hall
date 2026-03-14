@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Simon Sez 🎮</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Syne:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* ============================================================
+       CSS VARIABLES — colors, backgrounds, and dim states
+       All the glow / lit effects live in the .lit rules below.
+       Students: you don't need to edit this file!
+    ============================================================ */
+    :root {
+      --bg:          #0d0d0f;
+      --panel:       #16161a;
+      --border:      #2a2a30;
+      --text:        #e8e8f0;
+      --muted:       #5a5a72;
+      --green:       #39d98a;
+      --red:         #f25757;
+      --yellow:      #f2c94c;
+      --blue:        #5b9cf6;
+      --green-dim:   #1a3d2b;
+      --red-dim:     #3d1a1a;
+      --yellow-dim:  #3d320d;
+      --blue-dim:    #1a2a3d;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Syne', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      padding: 24px;
+    }
+
+    h1 {
+      font-family: 'Press Start 2P', monospace;
+      font-size: clamp(16px, 3vw, 26px);
+      letter-spacing: 2px;
+    }
+
+    /* ── SCOREBOARD ─────────────────────────────────────────── */
+    #scoreboard {
+      display: flex;
+      gap: 32px;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 11px;
+    }
+
+    .score-card {
+      background: var(--panel);
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 22px;
+      text-align: center;
+      min-width: 80px;
+      transition: border-color .3s, box-shadow .3s;
+    }
+
+    /* JS adds/removes .active to highlight whose turn it is */
+    .score-card.active {
+      border-color: var(--green);
+      box-shadow: 0 0 16px #39d98a33;
+    }
+
+    .score-card .score-label { color: var(--muted); margin-bottom: 8px; }
+    .score-card .score-val   { font-size: 22px; color: var(--text); }
+
+    /* ── SEQUENCE ROW ───────────────────────────────────────── */
+    /* JS will inject colored .pip divs in here */
+    #sequence-row {
+      display: flex;
+      gap: 10px;
+      min-height: 52px;
+      align-items: center;
+      background: var(--panel);
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: min(480px, 90vw);
+      transition: border-color .3s, box-shadow .3s;
+    }
+
+    /* JS adds these classes after spacebar submit to give feedback */
+    #sequence-row.flash-success { border-color: var(--green); box-shadow: 0 0 20px #39d98a55; }
+    #sequence-row.flash-fail    { border-color: var(--red);   box-shadow: 0 0 20px #f2575755; }
+
+    #sequence-row .pip {
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      border: 2px solid rgba(255,255,255,.12);
+    }
+
+    /* ── GAME GRID ──────────────────────────────────────────── */
+    #game-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      width: min(480px, 90vw);
+      aspect-ratio: 1;
+    }
+
+    .square {
+      border-radius: 20px;
+      border: 3px solid transparent;
+      cursor: pointer;
+      transition: transform .08s, box-shadow .2s, background .15s, filter .15s;
+      position: relative;
+      overflow: hidden;
+      user-select: none;
+    }
+
+    /* Dim (default) state for each square */
+    #top-left     { background: var(--green-dim);  border-color: var(--green);  }
+    #top-right    { background: var(--red-dim);    border-color: var(--red);    }
+    #bottom-left  { background: var(--yellow-dim); border-color: var(--yellow); }
+    #bottom-right { background: var(--blue-dim);   border-color: var(--blue);   }
+
+    /* Lit (active) state — JS adds .lit to trigger this */
+    #top-left.lit     { background: var(--green);  box-shadow: 0 0 40px var(--green),  0 0 80px #39d98a44; filter: brightness(1.2); transform: scale(0.96); }
+    #top-right.lit    { background: var(--red);    box-shadow: 0 0 40px var(--red),    0 0 80px #f2575744; filter: brightness(1.2); transform: scale(0.96); }
+    #bottom-left.lit  { background: var(--yellow); box-shadow: 0 0 40px var(--yellow), 0 0 80px #f2c94c44; filter: brightness(1.2); transform: scale(0.96); }
+    #bottom-right.lit { background: var(--blue);   box-shadow: 0 0 40px var(--blue),   0 0 80px #5b9cf644; filter: brightness(1.2); transform: scale(0.96); }
+
+    /* JS adds .disabled during computer playback to block clicks */
+    .square.disabled { pointer-events: none; }
+
+    .square .label {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 11px;
+      position: absolute;
+      bottom: 14px;
+      right: 16px;
+      opacity: .28;
+      pointer-events: none;
+    }
+
+    /* ── STATUS / MESSAGE / HINT ────────────────────────────── */
+    #status-bar {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 1px;
+      text-align: center;
+    }
+    #status-bar span { color: var(--text); }
+
+    #message {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 11px;
+      min-height: 20px;
+      text-align: center;
+      letter-spacing: 1px;
+    }
+
+    #spacebar-hint {
+      font-size: 12px;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 6px 14px;
+      border-radius: 6px;
+    }
+
+    /* ── RESET BUTTON ───────────────────────────────────────── */
+    #reset-btn {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 10px;
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 8px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      letter-spacing: 1px;
+      transition: color .2s, border-color .2s;
+    }
+    #reset-btn:hover { color: var(--text); border-color: var(--text); }
+  </style>
+</head>
+<body>
+
+  <h1>SIMON SEZ</h1>
+
+  <!-- Scoreboard — JS updates score values and toggles .active on each turn -->
+  <div id="scoreboard">
+    <div class="score-card active" id="card-p1">
+      <div class="score-label">P1</div>
+      <div class="score-val" id="score-p1">0</div>
+    </div>
+    <div class="score-card" id="card-p2">
+      <div class="score-label">P2</div>
+      <div class="score-val" id="score-p2">0</div>
+    </div>
+  </div>
+
+  <!-- Sequence row — JS injects .pip divs in here to show the pattern -->
+  <div id="sequence-row">
+    <span id="seq-placeholder" style="font-size:11px; color:var(--muted); font-style:italic;">
+      sequence will appear here
+    </span>
+  </div>
+
+  <!-- Game grid — data-color tells JS which color each square represents -->
+  <div id="game-grid">
+    <div class="square" id="top-left"     data-color="green" ><span class="label">GREEN</span></div>
+    <div class="square" id="top-right"    data-color="red"   ><span class="label">RED</span></div>
+    <div class="square" id="bottom-left"  data-color="yellow"><span class="label">YELLOW</span></div>
+    <div class="square" id="bottom-right" data-color="blue"  ><span class="label">BLUE</span></div>
+  </div>
+
+  <!-- Status — JS updates turn-counter and player-label each round -->
+  <div id="status-bar">
+    Turn <span id="turn-counter">1</span> &nbsp;·&nbsp; Player <span id="player-label">1</span>
+  </div>
+
+  <!-- Message — JS sets the text and color of this to give player feedback -->
+  <div id="message" style="color: var(--green);">get ready...</div>
+
+  <div id="spacebar-hint">press <strong>SPACEBAR</strong> to submit your sequence</div>
+
+  <button id="reset-btn">↺ RESET</button>
+
+  <!-- All game logic lives in game.js -->
+  <script src="game.js"></script>
+
+</body>
+</html>
