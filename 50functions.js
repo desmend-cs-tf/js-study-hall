@@ -393,12 +393,16 @@ function mergeStats(stats1, stats2) {
  */
 function getRank(powerLevel) {
   // TODO: Use if/else if to return the correct rank string
-  if(powerLevel >= 0 && powerLevel <= 999 ){
+  if (powerLevel >= 0 && powerLevel <= 999) {
     return "Genin"
-  }else if(powerLevel >= 1000 && powerLevel <= 2999 ){
-    
+  } else if (powerLevel >= 1000 && powerLevel <= 2999) {
+    return "Chunin"
+  } else if (powerLevel >= 3000 && powerLevel <= 5999) {
+    return "Jonin"
+  } else {
+    return "Kage"
+  }
 }
-
 /**
  * FN 30 — getArcType
  * Returns the story arc type based on power level.
