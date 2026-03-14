@@ -189,3 +189,127 @@ function findEliteTech(arr) {
 function powerLevelAudit(arr) {
   // Your code here
 }
+
+// Now New Data
+
+// --- THE DATA ---
+const spiderVerse = [
+  { alias: "Spider-Man", name: "Peter Parker", homeWorld: "Earth-616", active: true },
+  { alias: "Spider-Gwen", name: "Gwen Stacy", homeWorld: "Earth-65", active: true },
+  { alias: "Spider-Man Noir", name: "Peter Parker", homeWorld: "Earth-90214", active: false },
+  { alias: "Spider-Ham", name: "Peter Porker", homeWorld: "Earth-8311", active: true }
+];
+
+const galacticBounties = [
+  { target: "Thanos", amount: 1000000, status: "Caught" },
+  { target: "Galactus", amount: 5000000, status: "At Large" },
+  { target: "Loki", amount: 50000, status: "Caught" }
+];
+
+// --- THE CHALLENGES ---
+
+// 21. logStatus(arr)
+// TODO: Use .forEach() to console.log: "[alias] is from [homeWorld]"
+function logStatus(arr) {
+  // Your code here
+}
+
+// 22. activateHeroes(arr)
+// TODO: Use .map() to return a new array of objects where "active" is set to true for everyone.
+function activateHeroes(arr) {
+  // Your code here
+}
+
+// 23. getBountyNames(arr)
+// TODO: Use a for...of loop to push only the names (target) of the bounties into a new array.
+function getBountyNames(arr) {
+  let names = [];
+  // Your code here
+}
+
+// 24. priceDrop(arr)
+// TODO: Use .map() to return a new array where every bounty amount is reduced by 10%.
+function priceDrop(arr) {
+  // Your code here
+}
+
+// 25. findAtLarge(arr)
+// TODO: Use a for...of loop to return an array of targets that are "At Large".
+function findAtLarge(arr) {
+  // Your code here
+}
+
+// 26. createidTags(arr)
+// TODO: Use .map() to return an array of strings like: "ID: [name] ([homeWorld])"
+function createidTags(arr) {
+  // Your code here
+}
+
+// 27. sumBounties(arr)
+// TODO: Use .forEach() to calculate the total sum of all bounty amounts.
+function totalBounty(arr) {
+  let total = 0;
+  // Your code here
+}
+
+// 28. simplifyHeroes(arr)
+// TODO: Use .map() to return a new array of objects containing ONLY {alias, homeWorld}.
+function simplifyHeroes(arr) {
+  // Your code here
+}
+
+// 29. markAsEscaped(arr, targetName)
+// TODO: Use .forEach() to find the targetName and change their status to "At Large".
+// (Note: This mutates the original array or a copy).
+function markAsEscaped(arr, targetName) {
+  // Your code here
+}
+
+// 30. listWorlds(arr)
+// TODO: Use .map() to return an array of all the homeWorlds, then use .join(", ") on the result.
+function listWorlds(arr) {
+  // Your code here
+}
+
+// --- TEST SUITE ---
+
+console.log("🚀 STARTING PROFESSIONAL ITERATION TESTS...");
+
+// 21. logStatus (Manual)
+console.log("--- 21. logStatus (Manual Check) ---");
+logStatus(spiderVerse);
+
+// 22. activateHeroes
+const activated = activateHeroes(spiderVerse);
+test("activateHeroes", activated && activated[2].active === true);
+
+// 23. getBountyNames
+const bNames = getBountyNames(galacticBounties);
+test("getBountyNames", bNames && bNames.includes("Thanos") && bNames.length === 3);
+
+// 24. priceDrop
+const discounted = priceDrop(galacticBounties);
+test("priceDrop", discounted && discounted[0].amount === 900000);
+
+// 25. findAtLarge
+const atLarge = findAtLarge(galacticBounties);
+test("findAtLarge", atLarge && atLarge.length === 1 && atLarge[0] === "Galactus");
+
+// 26. createidTags
+const tags = createidTags(spiderVerse);
+test("createidTags", tags && tags[0] === "ID: Peter Parker (Earth-616)");
+
+// 27. sumBounties
+test("totalBounty", totalBounty(galacticBounties) === 6050000);
+
+// 28. simplifyHeroes
+const simple = simplifyHeroes(spiderVerse);
+test("simplifyHeroes", simple && simple[0].alias === "Spider-Man" && !simple[0].name);
+
+// 29. markAsEscaped
+markAsEscaped(galacticBounties, "Loki");
+test("markAsEscaped", galacticBounties[2].status === "At Large");
+
+// 30. listWorlds
+const worlds = listWorlds(spiderVerse);
+test("listWorlds", worlds === "Earth-616, Earth-65, Earth-90214, Earth-8311");
