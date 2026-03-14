@@ -169,6 +169,5 @@ Once all five TODOs are working, try these:
 
 - **Speed it up** — reduce the flash delay each round so it gets harder over time
 - **Sound effects** — play a different tone for each color using the Web Audio API
-- **High score** — store the best turn count in `localStorage` and show it on the page
 - **Animations** — add a CSS shake animation to the grid when the player gets it wrong
 - **Mobile support** — make sure touch events work on phones (hint: `touchstart`)
